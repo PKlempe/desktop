@@ -51,19 +51,21 @@
       </div>
     </div>
   </div>
-  <app-vault-groupings
-    id="groupings"
-    class="groupings"
-    (onAllClicked)="clearGroupingFilters()"
-    (onFavoritesClicked)="filterFavorites()"
-    (onCipherTypeClicked)="filterCipherType($event)"
-    (onFolderClicked)="filterFolder($event.id)"
-    (onAddFolder)="addFolder()"
-    (onEditFolder)="editFolder($event.id)"
-    (onCollectionClicked)="filterCollection($event.id)"
-    (onTrashClicked)="filterDeleted()"
-  >
-  </app-vault-groupings>
+  <div class="groupings">
+    <div class="content">
+      <div class="inner-content">
+        <app-vault-filter
+          [activeFilter]="activeFilter"
+          (onFilterChange)="applyVaultFilter($event)"
+          (onAddFolder)="addFolder()"
+          (onEditFolder)="editFolder($event.id)"
+        ></app-vault-filter>
+      </div>
+      <div class="footer">
+        <app-nav class="nav"></app-nav>
+      </div>
+    </div>
+  </div>
 </div>
 <ng-template #passwordGenerator></ng-template>
 <ng-template #attachments></ng-template>

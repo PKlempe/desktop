@@ -1,0 +1,40 @@
+<ng-container *ngIf="!hide">
+  <ng-container [ngSwitch]="displayMode">
+    <ng-container *ngSwitchCase="'organizationMember'">
+      <div class="heading" [ngClass]="{ active: !hasActiveFilter }">
+        <i
+          class="bwi bwi-fw"
+          title="{{ 'toggleCollapse' | i18n }}"
+          aria-hidden="true"
+          [ngClass]="{
+            'bwi-angle-right': isCollapsed,
+            'bwi-angle-down': !isCollapsed
+          }"
+          (click)="toggleCollapse()"
+          appStopProp
+        ></i>
+        <a href="#" (click)="clearFilter()">
+          <h2>&nbsp;{{ organizationGrouping.name | i18n }}</h2>
+        </a>
+      </div>
+      <ul *ngIf="!isCollapsed" class="no-margin">
+        <li [ngClass]="{ active: activeFilter.myVaultOnly }">
+          <a href="#" (click)="applyMyVaultFilter()">
+            <i class="bwi bwi-fw bwi-user" aria-hidden="true"></i>
+            &nbsp;{{ "myVault" | i18n }}
+          </a>
+        </li>
+        <li
+          *ngFor="let organization of organizations"
+          [ngClass]="{ active: organization.id === activeFilter.selectedOrganizationId }"
+        >
+          <a href="#" appStopClick appBlurClick (click)="applyOrganizationFilter(organization)">
+            <i class="bwi bwi-fw bwi-business" aria-hidden="true"></i>
+            &nbsp;{{ organization.name }}
+          </a>
+        </li>
+      </ul>
+    </ng-container>
+  </ng-container>
+  <hr />
+</ng-container>
